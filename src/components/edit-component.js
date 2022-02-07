@@ -113,9 +113,9 @@ export default class Edit extends Component {
     if(this.state.delCrush){
       this.handleDelCrush()
     }
-    this.sleep(50).then(r =>{
-      window.location.reload()
-    })
+    // this.sleep(50).then(r =>{
+    //   window.location.reload()
+    // })
   }
 
   render() {
