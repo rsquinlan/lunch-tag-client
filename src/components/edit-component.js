@@ -152,7 +152,8 @@ export default class Edit extends Component {
                   <select onChange={this.onChangeStrike}> 
                     <option value="Add a Strike"> -- Add a Strike -- </option>
                     {userList.filter(user => user.username !== currentUser.username
-                      && user.username !== "Admin").map((user) => <option value={user.username}>{user.username}</option>)}
+                      && user.username !== "Admin"
+                      && !currentUser.strikes.includes(user.username)).map((user) => <option value={user.username}>{user.username}</option>)}
                   </select>
                 </div>
                 <div className="form-group">
