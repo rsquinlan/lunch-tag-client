@@ -82,7 +82,7 @@ export default class Edit extends Component {
   }
 
   setUser(e){
-    this.setState({currentUser: UserService.getCurrentUser()})
+    this.setState({currentUser: AuthService.getCurrentUser()})
   }
 
   optIn() {
