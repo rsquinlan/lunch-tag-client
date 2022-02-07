@@ -17,6 +17,7 @@ class UserService {
         { params: {username: username, newStrike: newStrike}}, 
         {headers: authHeader()})
         .then(res => {
+            console.log(res.data)
             if (res.data.accessToken){
                 localStorage.setItem("user", JSON.stringify(res.data))
             }
