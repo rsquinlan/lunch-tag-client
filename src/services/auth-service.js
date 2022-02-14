@@ -6,10 +6,10 @@ const API_URL = 'https://lunch-tag-server.herokuapp.com/api/auth/'
 
 class AuthService {
     login(username, password) {
-        return axios.post(API_URL + 'signin', {body: {
+        return axios.post(API_URL + 'signin', {
             username,
             password
-        }}, {headers: authHeader()})
+        }, {headers: authHeader()})
         .then(res => {
             if (res.data.accessToken){
                 localStorage.setItem("user", JSON.stringify(res.data))
