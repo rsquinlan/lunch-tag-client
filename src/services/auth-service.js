@@ -1,13 +1,15 @@
 import axios from 'axios'
+import authHeader from './auth-header'
+
 
 const API_URL = 'https://lunch-tag-server.herokuapp.com/api/auth/'
 
 class AuthService {
     login(username, password) {
-        return axios.post(API_URL + 'signin', {
+        return axios.post(API_URL + 'signin', {body: {
             username,
             password
-        })
+        }}, {headers: authHeader()})
         .then(res => {
             if (res.data.accessToken){
                 localStorage.setItem("user", JSON.stringify(res.data))
