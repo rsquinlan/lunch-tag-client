@@ -6,7 +6,6 @@ const API_URL = 'https://lunch-tag-server.herokuapp.com/api/auth/'
 
 class AuthService {
     login(username, password) {
-        console.log(username, password)
         return axios.post(API_URL + 'signin', {body: {
             username,
             password
