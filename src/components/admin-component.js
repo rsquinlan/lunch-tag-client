@@ -2,6 +2,7 @@ import React, { Component } from "react";
 
 import AuthService from "../services/auth-service"
 import AdminService from "../services/admin-service"
+import UserService from "../services/user-service"
 
 export default class Admin extends Component {
   constructor(props) {
@@ -25,33 +26,46 @@ export default class Admin extends Component {
   }
 
   createMatches() {
-      this.shuffle(Array.from(this.state.userList))
-      const userList = Array.from(this.state.userList)
-      let arr = userList.filter(user => user.username !== "Admin" && user.optedIn)
-      let matches = []
-      arr.forEach(user1 => {
-        arr.forEach(user2 => {
-          if(user1.crush === user2.username && !user2.strikes.includes(user1.username)){
-            matches.push([user1.username, user2.username])
-            arr = arr.filter(user => user.username !== user1.username && user.username !== user2.username)
-          }
+      let tries = 0
+      while(tries <= 1000){
+        this.shuffle(Array.from(this.state.userList))
+        const userList = Array.from(this.state.userList)
+        let arr = userList.filter(user => user.username !== "Admin" && user.optedIn)
+        let isOdd = arr.length % 2
+        let matches = []
+        arr.forEach(user1 => {
+          arr.forEach(user2 => {
+            if(user1.crush === user2.username && !user2.strikes.includes(user1.username)){
+              matches.push([user1.username, user2.username])
+              arr = arr.filter(user => user.username !== user1.username && user.username !== user2.username)
+            }
+          })
         })
-      })
-      arr.forEach(user1 => {
-        arr.forEach(user2 => {
-          if(!user1.prevMatches.includes(user2.username) && !user1.prevMatches.includes(user2.username) 
-              && !user2.strikes.includes(user1.username) && !user1.strikes.includes(user2.username)
-              && !matches.flat().includes(user1.username) && !matches.flat().includes(user2.username)
-              && user1.username !== user2.username){
-            matches.push([user1.username, user2.username])
-            arr = arr.filter(user => user.username !== user1.username && user.username !== user2.username)
-          }
+        arr.forEach(user1 => {
+          arr.forEach(user2 => {
+            if(!user1.prevMatches.includes(user2.username) && !user1.prevMatches.includes(user2.username) 
+                && !user2.strikes.includes(user1.username) && !user1.strikes.includes(user2.username)
+                && !matches.flat().includes(user1.username) && !matches.flat().includes(user2.username)
+                && user1.username !== user2.username){
+              matches.push([user1.username, user2.username])
+              arr = arr.filter(user => user.username !== user1.username && user.username !== user2.username)
+            }
+          })
         })
-      })
-      if(arr){
-        console.log(arr[0].username, "was not paired.")
+        if(arr.length == 0){
+          break
+        } else if(arr.length == 1 && isOdd){
+          console.log(arr[0].username, "was not paired.")
+          break
+        }
       }
-      this.setState({matches: matches})
+      if(tries >= 1000){
+        console.log("No valid matches found, consider resetting previous matches")
+      }
+      else{
+        this.setState({matches: matches})
+      }
+      
   }
 
   shuffle(array) {
@@ -66,6 +80,11 @@ export default class Admin extends Component {
 
   confirmMatches(){
     AdminService.confirmMatches(Array.from(this.state.matches))
+    const userList = Array.from(this.state.userList)
+    let arr = userList.filter(user => user.username !== "Admin" && user.optedIn)
+    arr.forEach(user => {
+      UserService.deleteCrush(user.username)
+    })
     console.log("confirmed :)")
   }
 
