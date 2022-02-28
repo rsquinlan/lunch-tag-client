@@ -27,6 +27,7 @@ export default class Admin extends Component {
 
   createMatches() {
       let tries = 0
+      let matches = []
       while(tries <= 1000){
         this.shuffle(Array.from(this.state.userList))
         const userList = Array.from(this.state.userList)
