@@ -53,6 +53,7 @@ export default class Admin extends Component {
             }
           })
         })
+        console.log("arr: " + arr)
         if(arr.length == 0){
           break
         } else if(arr.length == 1 && isOdd){
@@ -64,6 +65,7 @@ export default class Admin extends Component {
         console.log("No valid matches found, consider resetting previous matches")
       }
       else{
+        console.log(matches)
         this.setState({matches: matches})
       }
       
