@@ -27,7 +27,6 @@ export default class Admin extends Component {
 
   createMatches() {
       let tries = 0
-      let matches = []
       while(tries <= 1000){
         this.shuffle(Array.from(this.state.userList))
         const userList = Array.from(this.state.userList)
@@ -53,8 +52,6 @@ export default class Admin extends Component {
             }
           })
         })
-        console.log("arr: " + arr)
-        console.log("matches: " + matches)
         if(arr.length == 0){
           break
         } else if(arr.length == 1 && isOdd){
@@ -65,8 +62,7 @@ export default class Admin extends Component {
       if(tries >= 1000){
         console.log("No valid matches found, consider resetting previous matches")
       }
-      else{
-        console.log(matches)
+      else if(matches){
         this.setState({matches: matches})
       }
       
