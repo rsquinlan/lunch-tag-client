@@ -54,6 +54,7 @@ export default class Admin extends Component {
           })
         })
         console.log("arr: " + arr)
+        console.log("matches: " + matches)
         if(arr.length == 0){
           break
         } else if(arr.length == 1 && isOdd){
