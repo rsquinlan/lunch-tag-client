@@ -32,7 +32,7 @@ export default class Admin extends Component {
         const userList = Array.from(this.state.userList)
         let arr = userList.filter(user => user.username !== "Admin" && user.optedIn)
         let isOdd = arr.length % 2
-        let matches = []
+        var matches = []
         arr.forEach(user1 => {
           arr.forEach(user2 => {
             if(user1.crush === user2.username && !user2.strikes.includes(user1.username)){
