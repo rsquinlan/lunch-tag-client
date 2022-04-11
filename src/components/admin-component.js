@@ -52,9 +52,9 @@ export default class Admin extends Component {
             }
           })
         })
-        if(arr.length == 0){
+        if(arr.length === 0){
           break
-        } else if(arr.length == 1 && isOdd){
+        } else if(arr.length === 1 && isOdd){
           console.log(arr[0].username, "was not paired.")
           break
         }
@@ -64,6 +64,9 @@ export default class Admin extends Component {
       }
       else if(matches){
         this.setState({matches: matches})
+      }
+      else{
+        console.log("No valid matches found, consider resetting previous matches")
       }
       
   }
@@ -114,6 +117,9 @@ export default class Admin extends Component {
             <button onClick={this.confirmMatches}>
                 Confirm Matches
             </button>
+        )}
+        {currentUser && currentUser.username === "Admin" && this.state.matches === "" && (
+            <div>No Matches Found</div>
         )}
       </div>
     );
