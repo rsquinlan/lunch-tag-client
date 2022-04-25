@@ -27,7 +27,7 @@ export default class Admin extends Component {
 
   createMatches() {
       let tries = 0
-      while(tries <= 500){
+      while(tries <= 50){
         this.shuffle(Array.from(this.state.userList))
         const userList = Array.from(this.state.userList)
         let arr = userList.filter(user => user.username !== "Admin" && user.optedIn)
@@ -59,7 +59,7 @@ export default class Admin extends Component {
           break
         }
       }
-      if(tries >= 500){
+      if(tries >= 50){
         console.log("No valid matches found, consider resetting previous matches")
       }
       else if(matches){
